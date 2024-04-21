@@ -1,6 +1,9 @@
 from fastapi import APIRouter
 
-user = APIRouter()
+user = APIRouter(
+    prefix="/user",
+    tags=["user"],
+)
 
 @user.get("/")
 def index():
