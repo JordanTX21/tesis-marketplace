@@ -11,7 +11,7 @@
             type="email"
             placeholder="Usuario"
           />
-          <span class="text-red pl-3" v-if="errors.email">{{errors.email}}</span>
+          <div class="text-red pl-3" v-if="errors.email">{{errors.email}}</div>
         </div>
         <div class="mb-5">
           <input
@@ -21,7 +21,7 @@
             type="text"
             placeholder="Contraseña"
           />
-          <span class="text-red pl-3" v-if="errors.password">{{errors.password}}</span>
+          <div class="text-red pl-3" v-if="errors.password">{{errors.password}}</div>
         </div>
         <Button type="submit" class="btn-primary w-full">Ingresar</Button>
       </form>
