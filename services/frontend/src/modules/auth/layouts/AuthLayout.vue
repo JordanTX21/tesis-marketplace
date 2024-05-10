@@ -1,12 +1,12 @@
 <template>
   <div class="flex justify-center items-center min-h-screen">
     <div>
-      <div class="flex gap-4 w-full mb-5">
+      <div class="p-4 bg-neutral-00 rounded-2xl mb-5">
+        <RouterView />
+      </div>
+      <div class="flex gap-4 w-full">
         <Button :class="{'btn-primary':route.name==='login'}" @click="router.push({name:'login'})">Tengo una cuenta</Button>
         <Button :class="{'btn-primary':route.name==='register'}" @click="router.push({name:'register'})">Regsitrate</Button>
-      </div>
-      <div class="p-4 bg-neutral-00 rounded-2xl">
-        <RouterView />
       </div>
     </div>
   </div>
