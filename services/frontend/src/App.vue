@@ -4,10 +4,9 @@ import Theme from '@/components/layouts/Theme.vue'
 </script>
 
 <template>
-<Theme>
-  <RouterView />
-</Theme>
+  <Theme>
+    <RouterView />
+  </Theme>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
