@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import MarketView from '../views/MarketView.vue'
-import ProfileView from '../views/ProfileView.vue'
 import AuthRoutes from '@/modules/auth/router'
+import MarketRoutes from '@/modules/market/router'
+import ProfileRoutes from '@/modules/profile/router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +15,14 @@ const router = createRouter({
     {
       path: '/auth',
       ...AuthRoutes
+    },
+    {
+      path: '/market',
+      ...MarketRoutes
+    },
+    {
+      path: '/profile',
+      ...ProfileRoutes
     },
   ]
 })

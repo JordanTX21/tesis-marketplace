@@ -8,29 +8,28 @@
     </div>
 </template>
 <script lang="ts" setup>
-import IconHome from '@/components/icons/IconHome.vue'
-import IconMarket from '@/components/icons/IconMarket.vue'
-import IconUser from '@/components/icons/IconUser.vue'
 import Button from '@/components/Button.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 
 const bottomItems = ref([
     {
         title: 'Feed',
-        icon: IconHome,
+        icon: 'IconHome',
         route: 'home',
         active: true
     },
     {
         title: 'Market',
-        icon: IconMarket,
+        icon: 'IconMarket',
         route: 'market',
         active: false
     },
     {
         title: 'Profile',
-        icon: IconUser,
+        icon: 'IconUser',
         route: 'profile',
         active: false
     },
@@ -39,6 +38,7 @@ const bottomItems = ref([
 function toggleActive(item){
     bottomItems.value.forEach(bt => bt.active = false)
     item.active = true
+    router.push(item.route)
 }
 
 </script>
