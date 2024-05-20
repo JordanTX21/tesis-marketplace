@@ -83,6 +83,9 @@ export default {
           190: '#1A0C09',
         },
       },
+      fontFamily: {
+        heywow: ['HeyWow', 'sans-serif'],
+      },
     },
   },
   plugins: [],

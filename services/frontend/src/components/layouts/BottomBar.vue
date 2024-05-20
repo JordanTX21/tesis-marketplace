@@ -18,19 +18,19 @@ const bottomItems = ref([
     {
         title: 'Feed',
         icon: 'IconHome',
-        route: 'home',
+        route: 'home_home',
         active: true
     },
     {
         title: 'Market',
         icon: 'IconMarket',
-        route: 'market',
+        route: 'featured',
         active: false
     },
     {
         title: 'Profile',
         icon: 'IconUser',
-        route: 'profile',
+        route: 'home_profile',
         active: false
     },
 ])
@@ -38,7 +38,7 @@ const bottomItems = ref([
 function toggleActive(item){
     bottomItems.value.forEach(bt => bt.active = false)
     item.active = true
-    router.push(item.route)
+    router.push({name:item.route})
 }
 
 </script>

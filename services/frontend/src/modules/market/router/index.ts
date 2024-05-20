@@ -3,9 +3,19 @@ export default {
     component: () => import('../layouts/MarketLayout.vue'),
     children: [
         {
-            path: '',
-            name: 'market',
-            component: () => import('../views/MarketView.vue')
+            path: 'featured',
+            name: 'featured',
+            component: () => import('../views/FeaturedView.vue')
+        },
+        {
+            path: 'collection',
+            name: 'collection',
+            component: () => import('../views/CollectionView.vue')
+        },
+        {
+            path: 'stores',
+            name: 'stores',
+            component: () => import('../views/StoresView.vue')
         },
     ]
 }

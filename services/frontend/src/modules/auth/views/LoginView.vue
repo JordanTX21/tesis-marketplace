@@ -35,8 +35,6 @@ import { useLoginStore } from "../stores/login";
 
 const store = useLoginStore();
 const {
-  name,
-  nameProps,
   email,
   emailProps,
   password,

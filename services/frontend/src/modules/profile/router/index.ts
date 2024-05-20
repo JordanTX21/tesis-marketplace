@@ -4,7 +4,7 @@ export default {
     children: [
         {
             path: '',
-            name: 'profile',
+            name: 'home_profile',
             component: () => import('../views/ProfileView.vue')
         },
     ]
