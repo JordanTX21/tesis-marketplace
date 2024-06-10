@@ -5,6 +5,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 from pathlib import Path
 import re
 from src.routes.user import user
+from src.routes.product import product
 import mimetypes
 mimetypes.init()
 
@@ -45,3 +46,4 @@ except RuntimeError:
     print("No build directory found. Running in development mode.")
 
 app.include_router(user)
+app.include_router(product)
