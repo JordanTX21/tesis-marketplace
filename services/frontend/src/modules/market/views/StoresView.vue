@@ -100,7 +100,7 @@ const stores = ref([
     },
 ])
 
-function pushRouter(item) {
+function pushRouter(item:any) {
     router.push({ name: 'store', params: { id: item.id } })
 }
 

@@ -40,27 +40,4 @@ const store = ref({
     avatar: 'https://www.befunky.com/images/wp/wp-2021-01-linkedin-profile-picture-after.jpg?auto=avif,webp&format=jpg&width=944'
 })
 
-const menu = ref([
-    {
-        name: 'Overview',
-        route: 'store_overview',
-        active: true
-    },
-    {
-        name: 'Collection',
-        route: 'store_collection',
-        active: false
-    },
-    {
-        name: 'Blog',
-        route: 'store_blog',
-        active: false
-    },
-])
-
-function toggleActive(item){
-    menu.value.forEach(bt => bt.active = false)
-    item.active = true
-    // router.push({name:item.route})
-}
 </script>

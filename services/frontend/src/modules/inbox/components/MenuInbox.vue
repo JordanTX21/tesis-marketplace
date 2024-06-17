@@ -25,7 +25,7 @@ const menu = ref([
     }
 ])
 
-function toggleActive(item){
+function toggleActive(item:any){
     menu.value.forEach(bt => bt.active = false)
     item.active = true
     router.push({name:item.route})

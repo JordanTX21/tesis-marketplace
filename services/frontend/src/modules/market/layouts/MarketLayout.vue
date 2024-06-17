@@ -7,7 +7,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const showSearch = ref(false)
-const targetDiv = ref(null)
+const targetDiv = ref<HTMLDivElement | null>(null)
 const router = useRouter()
 
 const handleScroll = () => {

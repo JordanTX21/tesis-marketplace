@@ -17,5 +17,6 @@ export default {
             name: 'tracking',
             component: () => import('../views/TrackingView.vue')
         },
-    ]
+    ],
+    meta: { requiresAuth: true },
 }

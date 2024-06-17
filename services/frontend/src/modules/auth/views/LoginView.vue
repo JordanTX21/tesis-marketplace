@@ -23,7 +23,7 @@
           />
           <div class="text-red pl-3" v-if="errors.password">{{errors.password}}</div>
         </div>
-        <Button type="submit" class="btn-primary w-full">Ingresar</Button>
+        <Button type="submit" class="btn-primary w-full" :disabled="disabled">Ingresar</Button>
       </form>
     </div>
   </div>
@@ -40,5 +40,6 @@ const {
   password,
   passwordProps,
   errors,
+  disabled,
 } = storeToRefs(store);
 </script>

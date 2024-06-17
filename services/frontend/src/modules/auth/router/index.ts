@@ -12,5 +12,5 @@ export default {
             name: 'register',
             component: () => import('../views/RegisterView.vue')
         },
-    ]
+    ],
 }

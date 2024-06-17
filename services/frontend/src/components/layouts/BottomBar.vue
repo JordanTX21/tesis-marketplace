@@ -35,7 +35,7 @@ const bottomItems = ref([
     },
 ])
 
-function toggleActive(item){
+function toggleActive(item:any){
     bottomItems.value.forEach(bt => bt.active = false)
     item.active = true
     router.push({name:item.route})

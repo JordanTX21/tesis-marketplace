@@ -66,7 +66,7 @@ import Button from '@/components/Button.vue'
 import { useRouter } from 'vue-router'
 
 const showSearch = ref(false)
-const targetDiv = ref(null)
+const targetDiv = ref<HTMLDivElement | null>(null)
 const router = useRouter()
 
 const orders = ref([

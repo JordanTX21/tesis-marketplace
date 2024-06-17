@@ -17,5 +17,6 @@ export default {
             name: 'confirm',
             component: () => import('../views/ConfirmView.vue')
         },
-    ]
+    ],
+    meta: { requiresAuth: true },
 }

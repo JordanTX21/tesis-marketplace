@@ -3,9 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse
 from pathlib import Path
-import re
 from src.routes.user import user
 from src.routes.product import product
+from src.routes.file import file
 import mimetypes
 mimetypes.init()
 
@@ -13,16 +13,21 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+app.include_router(user)
+app.include_router(product)
+app.include_router(file)
+
+app.mount("/uploads", StaticFiles(directory="./uploads"), name="uploads")
 # Serve the Vue app in production mode
 try:
     # Directory where Vue app build output is located
-    build_dir = Path(__file__).resolve().parent / "dist"
+    build_dir = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
     index_path = build_dir / "index.html"
 
     # Serve assets files from the build directory
@@ -44,6 +49,3 @@ try:
 except RuntimeError:
     # The build directory does not exist
     print("No build directory found. Running in development mode.")
-
-app.include_router(user)
-app.include_router(product)
