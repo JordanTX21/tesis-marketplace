@@ -1,7 +1,7 @@
 from sqlalchemy import Table, Column
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, String, DateTime, Boolean
-from src.config.db import meta
+from src.config.db import meta,engine
 
 methadata = Table('methadata', meta, 
     Column('id',Integer,primary_key=True),
@@ -12,3 +12,5 @@ methadata = Table('methadata', meta,
     Column('updated_at',DateTime,nullable=True),
     Column('status',Boolean,default=True),
     )
+
+meta.create_all(engine)

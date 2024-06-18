@@ -18,7 +18,7 @@
             v-model="password"
             v-bind="passwordProps"
             class="focus:outline-none px-4 py-3 bg-neutral-05 rounded-xl text-neutral-90 placeholder:text-neutral-60 w-full"
-            type="text"
+            type="password"
             placeholder="Contraseña"
           />
           <div class="text-red pl-3" v-if="errors.password">{{errors.password}}</div>

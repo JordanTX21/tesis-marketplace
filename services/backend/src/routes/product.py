@@ -7,8 +7,10 @@ from src.models.product import products
 from src.models.product_image import product_images
 from src.models.product_rate import product_rates
 from src.models.product_category import product_categories
+from src.models.methadata import methadata
 from datetime import datetime
 from src.schemas.product import Product
+import requests
 
 product = APIRouter(
     prefix="/product",
@@ -17,9 +19,18 @@ product = APIRouter(
 
 @product.get("/recomended")
 def recomended():
-    text_search = 'I need Men casual t-shits'
+    id=9
+    result = conn.execute(methadata.select().where(methadata.c.user_id==id and methadata.c.status==True)).fetchall()
+    methadatas = [dict(data._mapping)["type"] for data in result]
+    # text_search = 'I need Men casual t-shits'
+    text_search = 'I need '+' '.join(methadatas)
     items = get_recommend_items(text_search, top_k=5)
     return JSONResponse(content={"success": True, "message": "Lista de productos", "data": jsonable_encoder(items)})
+
+@product.get("/all")
+def all():
+    response = requests.get("https://fakestoreapi.com/products")
+    return response.json()
 
 @product.get("/")
 def index():
