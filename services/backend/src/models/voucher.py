@@ -1,7 +1,7 @@
 from sqlalchemy import Table, Column
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, DateTime, Float, String, Boolean
-from src.config.db import meta
+from src.config.db import meta, engine
 
 vouchers = Table('vouchers', meta, 
     Column('id',Integer,primary_key=True),
@@ -14,3 +14,5 @@ vouchers = Table('vouchers', meta,
     Column('updated_at',DateTime,nullable=True),
     Column('status',Boolean,default=True),
     )
+
+meta.create_all(engine)

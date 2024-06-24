@@ -1,9 +1,9 @@
 from sqlalchemy import Table, Column
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, String, DateTime, Boolean
-from config.db import meta
+from src.config.db import meta, engine
 
-client = Table('client', meta, 
+clients = Table('clients', meta, 
     Column('id',Integer,primary_key=True),
     Column('type_document',String(255)),
     Column('document',String(255)),
@@ -14,3 +14,5 @@ client = Table('client', meta,
     Column('updated_at',DateTime,nullable=True),
     Column('status',Boolean,default=True),
     )
+
+meta.create_all(engine)

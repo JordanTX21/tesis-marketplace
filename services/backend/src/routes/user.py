@@ -52,7 +52,7 @@ def store(user: User):
 
 @user.put("/{id}",response_model=User)
 def update(id:str,user: User):
-    new_user = {"name":user.name,"email":user.email}
+    new_user = {"name":user.name,"email":user.email,"updated_at": datetime.now()}
     new_user["password"] = f.encrypt(user.password.encode("utf-8"))
     result = conn.execute(users.update().values(new_user).where(users.c.id == id))
     data = conn.execute(users.select().where(users.c.id == id)).first()
