@@ -2,6 +2,7 @@ import os, requests, openai, time, numpy as np
 from dotenv import load_dotenv
 from src.core.RedisClient import RedisSearchClient
 
+
 load_dotenv()
 openai.api_key=os.getenv('OPENAI_API_KEY')
 

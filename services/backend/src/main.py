@@ -6,6 +6,10 @@ from pathlib import Path
 from src.routes.user import user
 from src.routes.product import product
 from src.routes.file import file
+from src.routes.client import client
+from src.routes.order import order
+from src.routes.voucher import voucher
+
 import mimetypes
 mimetypes.init()
 
@@ -22,6 +26,10 @@ app.add_middleware(
 app.include_router(user)
 app.include_router(product)
 app.include_router(file)
+app.include_router(client)
+app.include_router(order)
+app.include_router(voucher)
+
 
 app.mount("/uploads", StaticFiles(directory="./uploads"), name="uploads")
 # Serve the Vue app in production mode

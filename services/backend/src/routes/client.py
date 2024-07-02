@@ -4,22 +4,82 @@ from fastapi.responses import JSONResponse
 from src.config.db import conn
 from src.models.client import clients
 from datetime import datetime
+from src.schemas.client import Client
 
-order = APIRouter(
-    prefix="/order",
-    tags=["order"],
+
+client = APIRouter(
+    prefix="/client",
+    tags=["client"],
 )
 
-@order.get("/")
+@client.get("/")
 def index():
     result = conn.execute(clients.select().where(clients.c.status==True)).fetchall()
     data = []
     for row in result:
-        order_dict = dict(row._mapping)
-        order_dict["created_at"] = order_dict["created_at"].isoformat()
-        if order_dict["updated_at"]:
-            order_dict["updated_at"] = order_dict["updated_at"].isoformat()
-        data.append(order_dict)
+        client_dict = dict(row._mapping)
+        client_dict["created_at"] = client_dict["created_at"].isoformat()
+        if client_dict["updated_at"]:
+            client_dict["updated_at"] = client_dict["updated_at"].isoformat()
+        data.append(client_dict)
     if len(data) == 0:
         return JSONResponse(content={"success": False, "message": "No se encontraron resultados"})
     return JSONResponse(content={"success": True, "message": "Lista de clientes", "data": data})
+
+@client.post("/")
+def store(client : Client):
+    new_client = {
+        "type_document": client.type_document,
+        "document": client.document,
+        "address": client.address,
+        "email": client.email,
+        "created_at": datetime.now()
+    }
+    result = conn.execute(clients.insert().values(new_client))
+    inserted_client_id = result.lastrowid
+    data = conn.execute(clients.select().where(clients.c.id==inserted_client_id)).fetchone()
+    if data is None:
+        return JSONResponse(content={"success": False, "message": "No se pudo crear el cliente"})
+    
+    client_dict = dict(data._mapping)
+    client_dict["created_at"] = client_dict["created_at"].isoformat()
+    if client_dict["updated_at"]:
+        client_dict["updated_at"] = client_dict["updated_at"].isoformat()
+    return JSONResponse(content={"success": True, "message": "Cliente creado", "data": client_dict})
+
+@client.put("/{id}")
+def update(id:str, client: Client):
+    new_client = {
+        "type_document": client.type_document,
+        "document": client.document,
+        "address": client.address,
+        "email": client.email,
+        "updated_at": datetime.now()
+    }
+    result = conn.execute(clients.update().values(new_client).where(clients.c.id == id))
+    data = conn.execute(clients.select().where(clients.c.id == id)).first()
+    if data is None:
+        return JSONResponse(content={"success": False, "message": "Ocurrió un error al actualizar el cliente"})
+    client_dict = dict(data._mapping)
+    client_dict["created_at"] = client_dict["created_at"].isoformat()
+    if client_dict["updated_at"]:
+        client_dict["updated_at"] = client_dict["updated_at"].isoformat()
+    return JSONResponse(content={"success": True, "message": "Cliente actualizado", "data": client_dict})
+
+@client.get("/{id}")
+def show(id:str):
+    data = conn.execute(clients.select().where(clients.c.id == id)).first()
+    if data is None:
+        return JSONResponse(content={"success": False, "message": "No se encontró al cliente"})
+    client_dict = dict(data._mapping)
+    client_dict["created_at"] = client_dict["created_at"].isoformat()
+    if client_dict["updated_at"]:
+        client_dict["updated_at"] = client_dict["updated_at"].isoformat()
+    return JSONResponse(content={"success": True, "message": "Cliente encontrado", "data": client_dict})
+
+
+@client.delete("/{id}")
+def delete(id:str):
+    result = conn.execute(clients.delete().where(clients.c.id == id))
+    return JSONResponse(content={"success": True, "message": "Cliente eliminado"})
+

@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+ENCRYPTION_KEY='BdSOu3s5mGNw7TBPW-UQc1XHZosajErzzwpPx1Orv2I='
 
 # key = Fernet.generate_key()
 # print(f"Generated Fernet key: {key.decode()}")
