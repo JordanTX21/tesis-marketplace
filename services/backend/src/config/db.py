@@ -1,9 +1,17 @@
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv,dotenv_values
 from sqlalchemy import create_engine, MetaData
 
-# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://"+str(os.getenv('DB_HOST'))+":"+str(os.getenv('DB_USER'))+"@"+str(os.getenv('DB_PASSWORD'))+":3306/"+str(os.getenv('DB_NAME'))
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:@localhost:3306/marketplace"
+load_dotenv()
+# Acceder a las variables de entorno cargadas
+db_host = os.getenv("DB_HOST")
+db_user = os.getenv("DB_USER")
+db_pass = os.getenv("DB_PASSWORD")
+db_name = os.getenv("DB_NAME")
+
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{db_user}:@{db_host}{db_pass}:3306/{db_name}"
+# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:@localhost:3306/marketplace"
+
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 meta = MetaData()
