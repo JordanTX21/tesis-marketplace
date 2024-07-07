@@ -6,10 +6,13 @@
 py -m venv env
 ```
 ```
-env\Scripts\activate
-```
-```
 cd services/backend
+```
+```
+cp .env.example .env
+```
+```
+env\Scripts\activate
 ```
 ```
 py -m pip install -r requirements.txt
