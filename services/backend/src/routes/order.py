@@ -37,6 +37,7 @@ def store(order: Order):
     new_order = {"quantity":quantity,"amount":amount,"client":order.client_id,"created_at": datetime.now()}
     result = conn.execute(orders.insert().values(new_order))
     result_order_states = conn.execute(order_states.insert().values({"state": "IN PREPARATION","order_id": result.lastrowid,"created_at": datetime.now()}))
+    conn.commit()
     data = conn.execute(orders.select().where(orders.c.id == result.lastrowid)).first()
     if data is None:
         return JSONResponse(content={"success": False, "message": "Ocurrió un error al crear la orden"})
@@ -55,6 +56,7 @@ def update(id:str,order: Order):
         amount += product.amount
     new_order = {"quantity":quantity,"amount":amount,"client":order.client_id,"updated_at": datetime.now()}
     result = conn.execute(orders.update().values(new_order).where(orders.c.id == id))
+    conn.commit()
     data = conn.execute(orders.select().where(orders.c.id == id)).first()
     if data is None:
         return JSONResponse(content={"success": False, "message": "Ocurrió un error al actualizar la orden"})
@@ -78,10 +80,12 @@ def show(id:str):
 @order.delete("/{id}")
 def destroy(id:str):
     result = conn.execute(orders.delete().where(orders.c.id == id))
+    conn.commit()
     return JSONResponse(content={"success": True, "message": "Orden eliminada"})
 
 @order.post("/state/{id}")
 def state(id:str,order_state:OrderState):
     result_order_states = conn.execute(order_states.insert().values({"state":order_state.state,"order_id": id,"created_at": datetime.now()}))
+    conn.commit()
     return JSONResponse(content={"success": True, "message": "Estado de orden actualizado"})
     

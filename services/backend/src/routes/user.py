@@ -42,6 +42,7 @@ def store(user: User):
     new_user = {"name":user.name,"email":user.email,"created_at": datetime.now()}
     new_user["password"] = f.encrypt(user.password.encode("utf-8"))
     result = conn.execute(users.insert().values(new_user))
+    conn.commit()
     data = conn.execute(users.select().where(users.c.id == result.lastrowid)).first()
     if data is None:
         return JSONResponse(content={"success": False, "message": "Ocurrió un error al crear el usuario"})
@@ -56,6 +57,7 @@ def update(id:str,user: User):
     new_user = {"name":user.name,"email":user.email,"updated_at": datetime.now()}
     new_user["password"] = f.encrypt(user.password.encode("utf-8"))
     result = conn.execute(users.update().values(new_user).where(users.c.id == id))
+    conn.commit()
     data = conn.execute(users.select().where(users.c.id == id)).first()
     if data is None:
         return JSONResponse(content={"success": False, "message": "Ocurrió un error al actualizar el usuario"})
@@ -79,6 +81,7 @@ def show(id:str):
 @user.delete("/{id}")
 def destroy(id:str):
     result = conn.execute(users.delete().where(users.c.id == id))
+    conn.commit()
     return JSONResponse(content={"success": True, "message": "Usuario eliminado"})
 
 @user.post("/login")

@@ -16,7 +16,7 @@ export const useHomeStore = defineStore('home', () => {
     const products = ref<Product[]>([])
     const search = async () => {
         products.value = []
-        const response = await request.get('product/recomended')
+        const response = await request.get('product/')
         if(!response.success){
             return false;
         }

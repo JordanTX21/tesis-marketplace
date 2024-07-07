@@ -40,6 +40,7 @@ def store(voucher: Voucher):
         "created_at": datetime.now()
     }
     result = conn.execute(vouchers.insert().values(new_voucher))
+    conn.commit()
     inserted_voucher_id = result.lastrowid
     
     data = conn.execute(vouchers.select().where(vouchers.c.id==inserted_voucher_id)).fetchone()
@@ -61,6 +62,7 @@ def update(id:str,voucher: Voucher):
         "updated_at": datetime.now()
     }
     result = conn.execute(vouchers.update().values(new_voucher).where(vouchers.c.id == id))
+    conn.commit()
     data = conn.execute(vouchers.select().where(vouchers.c.id == id)).first()
     if data is None:
         return JSONResponse(content={"success": False, "message": "Ocurrió un error al actualizar el voucher"})
@@ -84,6 +86,7 @@ def show(id:str):
 @voucher.delete("/{id}")
 def delete(id:str):
     result = conn.execute(vouchers.delete().where(vouchers.c.id == id))
+    conn.commit()
     if result.rowcount == 0:
         return JSONResponse(content={"success": False, "message": "No se encontró el voucher"})
     return JSONResponse(content={"success": True, "message": "Voucher eliminado"})

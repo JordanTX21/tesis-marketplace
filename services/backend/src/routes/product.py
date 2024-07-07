@@ -70,6 +70,7 @@ def store(product: Product):
         "created_at": datetime.now()
     }
     result = conn.execute(products.insert().values(new_product))
+    conn.commit()
     inserted_product_id = result.lastrowid
     if product.images:
         for image_path in product.images:
@@ -105,6 +106,7 @@ def update(id:str,product: Product):
         "updated_at": datetime.now()
     }
     result = conn.execute(products.update().values(new_product).where(products.c.id == id))
+    conn.commit()
     # Actualizar las imágenes si se proporcionan nuevas imágenes
     if product.images:
         conn.execute(product_images.delete().where(product_images.c.product_id == id))
@@ -146,6 +148,7 @@ def show(id:str):
 @product.delete("/{id}")
 def destroy(id:str):
     result = conn.execute(products.delete().where(products.c.id == id))
+    conn.commit()
     return JSONResponse(content={"success": True, "message": "Producto eliminado"})
 
 def get_recommend_items(text, top_k=2):

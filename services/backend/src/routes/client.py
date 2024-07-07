@@ -36,6 +36,7 @@ def store(client : Client):
         "created_at": datetime.now()
     }
     result = conn.execute(clients.insert().values(new_client))
+    conn.commit()
     inserted_client_id = result.lastrowid
     data = conn.execute(clients.select().where(clients.c.id==inserted_client_id)).fetchone()
     if data is None:
@@ -57,6 +58,7 @@ def update(id:str, client: Client):
         "updated_at": datetime.now()
     }
     result = conn.execute(clients.update().values(new_client).where(clients.c.id == id))
+    conn.commit()
     data = conn.execute(clients.select().where(clients.c.id == id)).first()
     if data is None:
         return JSONResponse(content={"success": False, "message": "Ocurrió un error al actualizar el cliente"})
@@ -81,5 +83,6 @@ def show(id:str):
 @client.delete("/{id}")
 def delete(id:str):
     result = conn.execute(clients.delete().where(clients.c.id == id))
+    conn.commit()
     return JSONResponse(content={"success": True, "message": "Cliente eliminado"})
 

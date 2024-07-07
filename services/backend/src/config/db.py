@@ -9,8 +9,7 @@ db_user = os.getenv("DB_USER")
 db_pass = os.getenv("DB_PASSWORD")
 db_name = os.getenv("DB_NAME")
 
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{db_user}:@{db_host}{db_pass}:3306/{db_name}"
-# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:@localhost:3306/marketplace"
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{db_user}:{db_pass}@{db_host}:3306/{db_name}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
