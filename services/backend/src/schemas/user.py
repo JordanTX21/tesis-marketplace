@@ -6,5 +6,6 @@ class User(BaseModel):
     name: str
     email: str
     password: str
+    repeatPassword: str = None
     photo: Optional[str] = None
     description: Optional[str] = None

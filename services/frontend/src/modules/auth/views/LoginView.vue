@@ -2,7 +2,7 @@
   <div>
     <div class="mb-5 text-center font-semibold text-2xl">Login</div>
     <div>
-      <form @submit="store.signup" novalidate>
+      <form @submit="store.signin" novalidate>
         <div class="mb-5 ">
           <input
             v-model="email"

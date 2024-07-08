@@ -21,17 +21,17 @@ class CoreRecommendation:
     def get_products(self):
         try:
             response = requests.get(self.api_url)
-            return response.json()
+            return response.json()["data"]
         except Exception as e:
             print(e)
             return None
 
     def get_text_for_product(self, product):
         """ 
-        product fields: id, title, price, description, category, image, rating_rate, rating_count
+        product fields: id, name, price, description, category, image, rating_rate, rating_count
         """
         text = ""
-        text += f"title: {product['title']}\n"
+        text += f"name: {product['name']}\n"
         text += f"price: {product['price']}\n"
         text += f"description: {product['description']}\n"
         text += f"category: {product['category']}"
@@ -70,7 +70,7 @@ class CoreRecommendation:
     def format_redis_save(self, product):
         return {
             'id': product['id'],
-            'title': product['title'],
+            'name': product['name'],
             'price': product['price'],
             'description': product['description'],
             'category': product['category'],

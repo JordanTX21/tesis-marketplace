@@ -6,13 +6,13 @@ export default class Request {
     prefix:string;
 
     constructor(){
-        this.domain = 'http://127.0.0.1:8000'
-        this.prefix = ''
+        this.domain = import.meta.env.VITE_SERVICES_DOMAIN
+        this.prefix = 'api'
     }
 
     async get(endpoint:string){
         try{
-            const response = await axios.get(`${this.domain}/${endpoint}`)
+            const response = await axios.get(`${this.domain}/${this.prefix}/${endpoint}`)
             return response.data
         }catch(e){
             return {success:false,message:'Ocurrió un error interno.',error: e}
@@ -21,7 +21,7 @@ export default class Request {
 
     async post(endpoint:string,data?:any){
         try{
-            const response = await axios.post(`${this.domain}/${endpoint}`,data)///${this.prefix}
+            const response = await axios.post(`${this.domain}/${this.prefix}/${endpoint}`,data)///${this.prefix}
             return response.data
         }catch(e){
             return {success:false,message:'Ocurrió un error interno.',error: e}
@@ -30,7 +30,7 @@ export default class Request {
 
     async put(endpoint:string,data?:any){
         try{
-            const response = await axios.put(`${this.domain}/${endpoint}`,data)
+            const response = await axios.put(`${this.domain}/${this.prefix}/${endpoint}`,data)
             return response.data
         }catch(e){
             return {success:false,message:'Ocurrió un error interno.',error: e}
@@ -39,7 +39,7 @@ export default class Request {
 
     async delete(endpoint:string){
         try{
-            const response = await axios.delete(`${this.domain}/${endpoint}`)
+            const response = await axios.delete(`${this.domain}/${this.prefix}/${endpoint}`)
             return response.data
         }catch(e){
             return {success:false,message:'Ocurrió un error interno.',error: e}

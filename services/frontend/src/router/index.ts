@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import AuthRoutes from '@/modules/auth/router'
 import MarketRoutes from '@/modules/market/router'
 import ProfileRoutes from '@/modules/profile/router'
@@ -18,7 +17,7 @@ const router = createRouter({
         {
           path: '',
           name: 'home_home',
-          component: HomeView
+          component: () => import('@/views/HomeView.vue')
         },
         {
           path: 'market',
@@ -41,7 +40,7 @@ const router = createRouter({
       ...AuthRoutes
     },
     {
-      path: '/product/:id',
+      path: '/product/:code',
       name: 'product',
       component: () => import('@/views/ProductView.vue'),
       meta: { requiresAuth: true },

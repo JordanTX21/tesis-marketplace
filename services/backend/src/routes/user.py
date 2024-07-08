@@ -39,6 +39,8 @@ def index():
 
 @user.post("/")
 def store(user: User):
+    if user.repeatPassword != user.password:
+        return JSONResponse(content={"success": False, "message": "Las contraseñas no coinciden"})
     new_user = {"name":user.name,"email":user.email,"created_at": datetime.now()}
     new_user["password"] = f.encrypt(user.password.encode("utf-8"))
     result = conn.execute(users.insert().values(new_user))
@@ -93,9 +95,6 @@ def login(login: Login):
     stored_encrypted_password = user_search['password']
     stored_password = f.decrypt(stored_encrypted_password).decode()
     
-    if stored_password == login.password:
-        # Autenticación exitosa, procede con la sesión de usuario
-        # Aquí puedes generar y devolver un token JWT o simplemente devolver una respuesta de éxito
-        return JSONResponse(content={"success": True, "message": "Login exitoso"})
-    else:
+    if stored_password != login.password:
         return JSONResponse(content={"success": False, "message": "Contraseña incorrecta", "data": {"password": True}})
+    return JSONResponse(content={"success": True, "message": "Login exitoso", "data": user_search["id"]})

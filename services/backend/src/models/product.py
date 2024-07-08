@@ -5,6 +5,7 @@ from src.config.db import meta, engine
 
 products = Table('products', meta, 
     Column('id',Integer,primary_key=True),
+    Column('code',String(255)),
     Column('name',String(255)),
     Column('description',Text,nullable=True),
     Column('price',Float,default=0),

@@ -17,18 +17,18 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173","https://f563-132-251-2-230.ngrok-free.app"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(user)
-app.include_router(product)
-app.include_router(file)
-app.include_router(client)
-app.include_router(order)
-app.include_router(voucher)
+app.include_router(user, prefix="/api")
+app.include_router(product, prefix="/api")
+app.include_router(file, prefix="/api")
+app.include_router(client, prefix="/api")
+app.include_router(order, prefix="/api")
+app.include_router(voucher, prefix="/api")
 
 
 app.mount("/uploads", StaticFiles(directory="./uploads"), name="uploads")

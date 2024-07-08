@@ -31,6 +31,7 @@ def store(client : Client):
     new_client = {
         "type_document": client.type_document,
         "document": client.document,
+        "name": client.name,
         "address": client.address,
         "email": client.email,
         "created_at": datetime.now()
@@ -53,6 +54,7 @@ def update(id:str, client: Client):
     new_client = {
         "type_document": client.type_document,
         "document": client.document,
+        "name": client.name,
         "address": client.address,
         "email": client.email,
         "updated_at": datetime.now()
