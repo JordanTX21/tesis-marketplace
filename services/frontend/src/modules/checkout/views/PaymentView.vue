@@ -3,25 +3,11 @@
         <div class="px-6 py-6 text-xl text-neutral-90">Seleccione o agregue su metodo de pago</div>
         <div>
             <div class="py-3 pl-6 flex gap-x-2 overflow-x-auto">
-                <div class="w-32 h-52 p-3 bg-yellow-10 rounded-xl grid content-between">
+                <div v-for="(item,index) in cards" class="w-32 h-52 p-3 bg-yellow-10 rounded-xl grid content-between" :key="`card-${index}`">
                     <div></div>
                     <div>
-                        <div class="text-sm text-neutral-70">Mastercard</div>
-                        <div class="text-lg font-semibold text-neutral-90">****1578</div>
-                    </div>
-                </div>
-                <div class="w-32 h-52 p-3 bg-secondary-10 rounded-xl grid content-between">
-                    <div></div>
-                    <div>
-                        <div class="text-sm text-neutral-70">Mastercard</div>
-                        <div class="text-lg font-semibold text-neutral-90">****1578</div>
-                    </div>
-                </div>
-                <div class="w-32 h-52 p-3 bg-primary-10 rounded-xl grid content-between">
-                    <div></div>
-                    <div>
-                        <div class="text-sm text-neutral-70">Mastercard</div>
-                        <div class="text-lg font-semibold text-neutral-90">****1578</div>
+                        <div class="text-sm text-neutral-70">Visa</div>
+                        <div class="text-lg font-semibold text-neutral-90">{{ item.number }}</div>
                     </div>
                 </div>
             </div>
@@ -44,8 +30,12 @@
 <script lang="ts" setup>
 import Button from "@/components/Button.vue"
 import { useCartStore } from '@/stores/cart'
+import { usePaymentStore } from "../stores/checkout";
+import { storeToRefs } from "pinia";
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const cart = useCartStore()
+const store = usePaymentStore()
+const { cards } = storeToRefs(store)
 </script>

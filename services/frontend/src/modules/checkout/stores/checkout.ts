@@ -17,8 +17,18 @@ const clientSchema = Yup.object({
 
 interface Client {
   id: number
+  document: string
   name: string
   address: string
+  email: string
+}
+
+interface Card {
+  id: number
+  name: string
+  number: string
+  address: string
+  cvv: string
 }
 
 export const useClientStore = defineStore('client', () => {
@@ -34,7 +44,9 @@ export const useClientStore = defineStore('client', () => {
   const clients = ref<Client[]>([])
   const client = ref<Client>({
     id: 0,
+    document: '',
     name: '',
+    email: '',
     address: ''
   })
   const disabled = ref<boolean>(false)
@@ -109,4 +121,17 @@ export const useOrderStore = defineStore('order', () => {
   }
 
   return { disabled, saveOrder }
+})
+
+export const usePaymentStore = defineStore('payment',() => {
+  const card = ref<Card>({
+    id: 0,
+    name: "",
+    number: "",
+    address: "",
+    cvv: "",
+  })
+  const cards = ref<Card[]>([])
+
+  return { cards }
 })
